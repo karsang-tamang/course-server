@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
         <title>Course Server</title>
       </head>
       <body>
-        <h1>Hello from my server!</h1>
+        <h1>Hello from Karsang's server!</h1>
         <p>This page is being served by Node.js and Express.</p>
       </body>
     </html>
