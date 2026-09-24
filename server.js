@@ -25,7 +25,7 @@ app.get('/api/getName', (req, res) => {
 
 app.get('/api/getImage', (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  res.sendFile(path.join(__dirname, 'image.png')); 
+  res.sendFile(path.join(__dirname, '/Users/karsangtamang/New/image.png')); 
 });
 
 app.listen(PORT, "0.0.0.0", () => {
