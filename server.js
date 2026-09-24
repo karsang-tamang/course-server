@@ -22,6 +22,11 @@ app.get('/api/getName', (req, res) => {
   res.json({ name: 'Real Madrid' }); 
 });
 
+app.get('/api/getImage', (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.sendFile(path.join(__dirname, 'image.png')); 
+});
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server listening on port ${PORT}`);
 });
