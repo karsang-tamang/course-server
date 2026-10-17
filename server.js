@@ -1,4 +1,7 @@
+require("dotenv").config();
+
 const express = require("express");
+const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -23,9 +26,9 @@ app.get('/api/getName', (req, res) => {
   res.json({ name: 'Real Madrid' }); 
 });
 
-app.get('/api/getImage', (req, res) => {
+app.get('/api/getImage', (req, res) => {      
   res.set('Access-Control-Allow-Origin', '*');
-  res.sendFile(path.join(__dirname, '/Users/karsangtamang/New/image.png')); 
+  res.sendFile(path.join(__dirname, 'image.png'));
 });
 
 app.listen(PORT, "0.0.0.0", () => {
