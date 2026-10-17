@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Real Madrid</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Real Madrid</h1>
+
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="players.html">Players</a>
+        <a href="manager.html">Manager</a>
+        <a href="stadium.html">Stadium</a>
+        <a href="history.html">History</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Hero Banner Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2>Welcome to Real Madrid Hub</h2>
+            <p>
+                Real Madrid Club de Fútbol is one of the most celebrated and successful football clubs 
+                in the world, boasting a unparalleled legacy of domestic and international glory.
+            </p>
+            <p>
+                Explore detailed player profiles, learn about club history, view our home stadium, and 
+                interact with our live squad database below.
+            </p>
+        </div>
+        <div class="hero-badge">
+            <img src="images/emblem.jpeg" alt="Real Madrid Emblem">
+        </div>
+    </section>
+
+    <!-- Quick Facts Grid -->
+    <section class="facts-section">
+        <h2>Quick Facts</h2>
+        <div class="facts-grid">
+            <div class="fact-card">
+                <span class="fact-icon">📅</span>
+                <strong>Founded</strong>
+                <p>1902</p>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">📍</span>
+                <strong>Location</strong>
+                <p>Madrid, Spain</p>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">🏟️</span>
+                <strong>Stadium</strong>
+                <p>Santiago Bernabéu</p>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">🏆</span>
+                <strong>League</strong>
+                <p>La Liga</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tools Section -->
+    <!-- Interactive Tools Section -->
+    <div class="interactive-grid">
+        <!-- Search Player Tool -->
+        <section class="tool-card">
+            <div class="tool-content">
+                <h2>Search for a Player</h2>
+                <p>Type a player's name to find their profile details:</p>
+                <div class="search-box">
+                    <input
+                        type="text"
+                        id="playerName"
+                        placeholder="Enter player name (e.g. Mbappé, Bellingham)">
+                    <button onclick="searchPlayer()">Search</button>
+                </div>
+            </div>
+            <div id="searchResult" class="result-container"></div>
+        </section>
+
+        <!-- Random Player Tool -->
+        <section class="tool-card">
+            <div class="tool-content">
+                <h2>Random Player Generator</h2>
+                <p>Discover a random member from the current squad:</p>
+                <button onclick="getRandomPlayer()" class="btn-primary">
+                    Generate Random Player
+                </button>
+            </div>
+            <div id="randomPlayerResult" class="result-container"></div>
+        </section>
+    </div>
+</main>
+
+<!-- Load Data First, then Home Page Logic -->
+    <script src="js/playerData.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+</html>
