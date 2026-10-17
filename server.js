@@ -7,22 +7,11 @@ const { uploadFile } = require("./storage"); // Import Backblaze storage helper
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ==========================================
-// 1. MIDDLEWARE: Body Parsers & Static Files
-// ==========================================
-// Handles incoming HTML form data (urlencoded) and JSON bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Serves all static files (HTML, CSS, client JS, images) from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// ==========================================
-// 2. ROUTES & MILESTONE IMPLEMENTATIONS
-// ==========================================
-
-// Route to serve an HTML Form (Requirement: Serve at least one HTML form)
 app.get("/contact", (req, res) => {
   res.send(`
     <!DOCTYPE html>
@@ -53,12 +42,10 @@ app.get("/contact", (req, res) => {
   `);
 });
 
-// Handle HTTP-Body from form submission & save to Backblaze B2 (Requirement: Handle http-bodies)
 app.post("/submit-feedback", async (req, res) => {
   try {
     const { username, comment } = req.body;
 
-    // Create a unique JSON file name and format the payload
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
     const fileName = `feedback-${timestamp}-${username.replace(/\s+/g, "_")}.json`;
     
@@ -68,7 +55,6 @@ app.post("/submit-feedback", async (req, res) => {
       submittedAt: new Date().toISOString()
     }, null, 2);
 
-    // Upload directly to Backblaze B2 via storage.js
     await uploadFile(fileName, feedbackData, "application/json");
 
     res.send(`
@@ -85,21 +71,18 @@ app.post("/submit-feedback", async (req, res) => {
   }
 });
 
-// Route with Route Parameters (Requirement: Handle route parameters)
 app.get('/api/players/:id', (req, res) => {
   const playerId = req.params.id;
   res.json({ success: true, requestedPlayerId: playerId });
 });
 
-// Route with Query Parameters (Requirement: Handle querystring parameters)
 app.get('/api/search', (req, res) => {
   const query = req.query.q || "";
   res.json({ success: true, searchQuery: query, message: `Searched for query: ${query}` });
 });
 
-// Trigger file download at the client (Requirement: Trigger download of files at client)
 app.get('/api/download-badge', (req, res) => {
-  const filePath = path.join(__dirname, 'image.png');
+  const filePath = path.join(__dirname, 'public', 'images', 'emblem.jpeg');
   res.download(filePath, 'real-madrid-badge.png', (err) => {
     if (err) {
       console.error("Download error:", err);
@@ -107,7 +90,6 @@ app.get('/api/download-badge', (req, res) => {
   });
 });
 
-// Existing API endpoints supporting AJAX fetch calls from client
 app.get('/api/getName', (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.json({ name: 'Real Madrid' }); 
@@ -115,21 +97,14 @@ app.get('/api/getName', (req, res) => {
 
 app.get('/api/getImage', (req, res) => {      
   res.set('Access-Control-Allow-Origin', '*');
-  res.sendFile(path.join(__dirname, 'image.png'));
+  res.sendFile(path.join(__dirname, 'images/emblem.jpeg'));
 });
 
-// Route to test the 500 Error Handler
 app.get('/test-error', (req, res, next) => {
   const error = new Error("Simulated Server Error for testing!");
   next(error);
 });
 
-
-// ==========================================
-// 3. CUSTOM ERROR HANDLERS (404 & 500)
-// ==========================================
-
-// Custom 404 Not Found Handler (Requirement: Custom 404 handler)
 app.use((req, res, next) => {
   res.status(404).send(`
     <!DOCTYPE html>
@@ -145,7 +120,6 @@ app.use((req, res, next) => {
   `);
 });
 
-// Custom 500 Internal Server Error Handler (Requirement: Custom 500 handler)
 app.use((err, req, res, next) => {
   console.error("Captured Server Error:", err.stack);
   res.status(500).send(`
@@ -162,10 +136,6 @@ app.use((err, req, res, next) => {
   `);
 });
 
-
-// ==========================================
-// 4. START SERVER
-// ==========================================
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running and listening on port ${PORT}`);
 });
